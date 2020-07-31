@@ -1,0 +1,10 @@
+The following is a documentation of the solution to the task ‘Green vs Red’.
+
+##### Overview:
+The solution is written on Java. It consists of 4 classes: **Grid, Wrapper, Parser and Game**. The start point of the program is the Game class.
+
+##### Class description and methods:
+1) **Grid**: The grid is represented by a 2D boolean array. The reason for choosing a boolean array is because there are only two values (0 and 1; ‘False’ representing 0 and ‘True’ – 1).
+2) **Wrapper**: this is a helper class used for parsing the input. It consists of a single member – a value of type T. It’s purpose in this task is to wrap Integers when parsing the input lines to Integers.
+3) **Parser**: the class that takes care of the input parsing. It has a method that takes a line, regex and several arguments of type Wrapper<Integer>. It splits the line based on the regex and gives a value to each argument of type Wrapper<Integer>. The reason for using a wrapper is because when calling this method the arguments have to be modified.
+4) **Game**: the start point of the program. It starts with initialising the user input as stated in the task description. This process is repeated until a valid input is entered (valid according to the task description). Before it begins counting the occurrences it calls the **createGenerationZero** method which takes a list of Strings which represents the rows of the grid and fills the grid. The **calculateOccurrences** method counts the number of times the specified cell is green starting from the ‘Generation Zero’ grid for as many generations as the user has specified. The **createNextGeneration** method takes a grid and based on the rules creates the next generation grid. The **countGreenNeighbours** takes a grid and cell coordinates and returns the number of green neighbours. Note that because of the way the method is implemented it checks the cell from the method arguments itself, that’s why it checks if the cell is green and decrements the count if so.
