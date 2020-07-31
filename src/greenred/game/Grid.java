@@ -5,7 +5,7 @@ public class Grid {
     private int height;
     private int width;
 
-    public Grid(int height, int width) {
+    public Grid(int width, int height) {
         if (height >= 1000 || width >= 1000 || height <= 0 || width <= 0) {
             throw new IllegalArgumentException("Invalid grid size");
         }
@@ -31,14 +31,14 @@ public class Grid {
         return height;
     }
 
-    public boolean getCell(int i, int j) {
+    public boolean getCell(int j, int i) {
         if (i >= height || j >= width || i < 0 || j < 0) {
             throw new IllegalArgumentException("Cell is out of bound");
         }
         return grid[i][j];
     }
 
-    public void setCell(int i, int j, boolean value) {
+    public void setCell(int j, int i, boolean value) {
         if (i >= height || j >= width || i < 0 || j < 0) {
             throw new IllegalArgumentException("Cell is out of bound");
         }

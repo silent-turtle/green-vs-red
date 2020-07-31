@@ -37,8 +37,8 @@ public class Game {
         Wrapper<Integer> height = new Wrapper<>(), width = new Wrapper<>();
         String line = scanner.nextLine();
         String regex = ",[ ]*";
-        parser.parseToInteger(line, regex, height, width);
-        initialState = new Grid(height.getValue(), width.getValue());
+        parser.parseToInteger(line, regex, width, height);
+        initialState = new Grid(width.getValue(), height.getValue());
         List<String> rows = new LinkedList<>();
         System.out.println("Enter grid values:");
         for (int i = 0; i < height.getValue(); ++i) {
@@ -48,7 +48,7 @@ public class Game {
         System.out.print("Enter cell position and generation limit: ");
         Wrapper<Integer> x = new Wrapper<>(), y = new Wrapper<>(), maxGen = new Wrapper<>();
         line = scanner.nextLine();
-        parser.parseToInteger(line, regex, y, x, maxGen);
+        parser.parseToInteger(line, regex, x, y, maxGen);
         positionY = y.getValue();
         positionX = x.getValue();
         maxGenerations = maxGen.getValue();
@@ -58,7 +58,7 @@ public class Game {
     public int calculateOccurrences() {
         int count = 0;
         Grid current = initialState;
-        for (int i = 0; i < maxGenerations; ++i) {
+        for (int i = 0; i <= maxGenerations; ++i) {
             if (current.getCell(positionX, positionY)) {
                 ++count;
             }
@@ -78,7 +78,7 @@ public class Game {
                 if (cellValue == 0) {
                     value = false;
                 }
-                initialState.setCell(i, j, value);
+                initialState.setCell(j, i, value);
             }
         }
     }
@@ -89,20 +89,20 @@ public class Game {
             for (int j = 0; j < current.getWidth(); j++) {
                 int count = countGreenNeighbours(current, i, j);
                 // cell is green
-                if (current.getCell(i, j)) {
+                if (current.getCell(j, i)) {
                     if (count == 2 || count == 3 || count == 6) {
-                        next.setCell(i, j, true);
+                        next.setCell(j, i, true);
                         continue;
                     }
-                    next.setCell(i, j, false);
+                    next.setCell(j, i, false);
                     continue;
                 }
                 //cell is red
                 if (count == 3 || count == 6) {
-                    next.setCell(i, j, true);
+                    next.setCell(j, i, true);
                     continue;
                 }
-                next.setCell(i, j, false);
+                next.setCell(j, i, false);
             }
         }
         return next;
@@ -118,12 +118,12 @@ public class Game {
                 if (s < 0 || s >= grid.getWidth()) {
                     continue;
                 }
-                if (grid.getCell(k, s)) {
+                if (grid.getCell(s, k)) {
                     ++count;
                 }
             }
         }
-        if (grid.getCell(i, j)) {
+        if (grid.getCell(j, i)) {
             --count;
         }
         return count;
